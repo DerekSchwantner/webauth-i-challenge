@@ -18,7 +18,7 @@ export default class UserList extends Component {
   fetchUsers = () => {
     axios
       .get(`http://localhost:4000/api/users`, {
-        headers: { username: "derek2", password: "pw" }
+        headers: { username: "bob", password: "pw" }
       })
       .then(response => {
         console.log(response);
@@ -52,7 +52,7 @@ export default class UserList extends Component {
           <h2>The users are.....</h2>
           {users.map(user => (
             <div key={user.id} className="user">
-              {user.username}
+              {user}
             </div>
           ))}
         </div>
