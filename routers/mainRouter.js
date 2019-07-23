@@ -3,10 +3,11 @@ const bcrypt = require("bcryptjs");
 
 const Users = require("./mainHelpers");
 const authenticate = require("../middleware/auth-middleware");
+const validateUserInfo = require("../middleware/validateUserInfo");
 
 const router = express.Router();
 
-router.post("/register", (req, res) => {
+router.post("/register", validateUserInfo, (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 14);
   user.password = hash;
@@ -27,7 +28,7 @@ router.get("/users", authenticate, (req, res) => {
     .catch(err => res.status(500).json({ err: "something went wrong" }));
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", validateUserInfo, (req, res) => {
   let { username, password } = req.body;
 
   Users.findBy({ username })
